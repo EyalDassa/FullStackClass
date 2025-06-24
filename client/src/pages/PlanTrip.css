@@ -1,0 +1,96 @@
+.plan-trip-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.planner-form {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: var(--content-background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.planner-form input,
+.planner-form select {
+  flex-grow: 1;
+  margin: 0;
+}
+
+.planner-form button {
+  flex-shrink: 0;
+  margin-top: 0; /* Override default form button style */
+}
+
+.plan-results {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.plan-sidebar,
+.plan-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.plan-details-card,
+.save-trip-card {
+  background-color: var(--content-background-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.plan-main .map-container {
+  height: 450px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  overflow: hidden; /* Ensures the map corners are rounded */
+}
+
+.plan-details-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.plan-details-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--text-light-color);
+}
+
+.plan-details-card ul li {
+  margin-bottom: 0.5rem;
+}
+
+.plan-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-top: 1rem;
+  object-fit: cover;
+}
+
+.narrative-card p {
+  white-space: pre-wrap; /* Preserves line breaks from AI */
+  line-height: 1.6;
+  color: var(--text-light-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .plan-results {
+    grid-template-columns: 1fr;
+  }
+}

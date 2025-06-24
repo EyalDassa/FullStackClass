@@ -1,0 +1,43 @@
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.trip-card {
+  background-color: var(--content-background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.trip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.trip-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+}
+
+.trip-card p {
+  margin: 0;
+  color: var(--text-light-color);
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+
+.trip-card .trip-date {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+  text-align: right;
+}

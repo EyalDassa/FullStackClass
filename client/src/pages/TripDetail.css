@@ -1,0 +1,67 @@
+.trip-detail-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.trip-detail-main h2 {
+  margin-top: 0;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.trip-detail-main .trip-description {
+  font-size: 1.1rem;
+  color: var(--text-light-color);
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.trip-detail-main .map-container {
+  height: 500px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  overflow: hidden;
+}
+
+.trip-detail-sidebar .details-card {
+  background-color: var(--content-background-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.trip-detail-sidebar h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.trip-detail-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trip-detail-sidebar li {
+  padding: 0.5rem 0;
+  color: var(--text-light-color);
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-size: 1.5rem;
+  color: var(--text-light-color);
+}
+
+@media (max-width: 992px) {
+  .trip-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

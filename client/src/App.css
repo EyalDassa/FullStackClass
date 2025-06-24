@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-page-container {
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+}
+
+/* Authentication Form Specific Styles - now in LoginRegister.css */

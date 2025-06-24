@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import api from "../api";
 import { MapContainer, TileLayer, Polyline } from "react-leaflet";
 import { useNavigate } from "react-router-dom";
+import MapController from "../components/MapController";
+import "./PlanTrip.css";
 
 export default function PlanTrip() {
-  const [location, setLocation] = useState("");
-  const [type, setType] = useState("trek");
+  const [location, setLocation] = useState("Paris");
+  const [type, setType] = useState("bike");
   const [plan, setPlan] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -77,13 +79,10 @@ export default function PlanTrip() {
   };
 
   return (
-    <div>
-      <h2>Plan a Trip</h2>
-
-      {/* Trip planning form */}
-      <form onSubmit={handlePlan}>
+    <div className="container plan-trip-container">
+      <form onSubmit={handlePlan} className="planner-form">
         <input
-          placeholder="Location"
+          placeholder="Enter a city or destination"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           required
@@ -93,76 +92,89 @@ export default function PlanTrip() {
           <option value="bike">Bike</option>
         </select>
         <button type="submit" disabled={isLoading}>
-          {isLoading ? "Generating..." : "Generate"}
+          {isLoading ? "Generating..." : "Generate Plan"}
         </button>
       </form>
 
-      {/* Once we have a plan, show preview + save UI */}
       {plan && (
-        <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
-          {/* Save Trip form */}
-          <div style={{ flex: 1 }}>
-            <h3>Save this Trip</h3>
-            <div>
-              <label>Trip Name</label>
-              <br />
-              <input
-                placeholder="e.g. Desert Sunrise Trek"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
+        <div className="plan-results">
+          {/* Left Sidebar */}
+          <div className="plan-sidebar">
+            <div className="save-trip-card">
+              <h3>Save Your Trip</h3>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSave();
+                }}
+              >
+                <input
+                  placeholder="e.g. Desert Sunrise Trek"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+                <textarea
+                  placeholder="A short, fun description of the trip"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={3}
+                />
+                <button type="submit">Save Trip</button>
+              </form>
             </div>
-            <div style={{ marginTop: "0.5rem" }}>
-              <label>Description (optional)</label>
-              <br />
-              <textarea
-                placeholder="Short description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={3}
-              />
+
+            <div className="plan-details-card">
+              <h3>Trip Details</h3>
+              <strong>Distances (km/day)</strong>
+              <ul>
+                {plan.dayDistances.map((d, i) => (
+                  <li key={i}>
+                    Day {i + 1}: {d.toFixed(1)} km
+                  </li>
+                ))}
+              </ul>
+              <strong style={{ marginTop: "1rem" }}>Weather Forecast</strong>
+              <ul>
+                {plan.weather.map((w, i) => (
+                  <li key={i}>
+                    {w.date}: {w.temp_min}° – {w.temp_max}°
+                  </li>
+                ))}
+              </ul>
             </div>
-            <button onClick={handleSave} style={{ marginTop: "0.5rem" }}>
-              Save Trip
-            </button>
           </div>
 
-          {/* Map preview */}
-          <MapContainer
-            style={{ height: "400px", width: "60%" }}
-            center={[plan.coords[0][1], plan.coords[0][0]]}
-            zoom={12}
-          >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <Polyline positions={plan.coords.map(([lon, lat]) => [lat, lon])} />
-          </MapContainer>
+          {/* Right Main Content */}
+          <div className="plan-main">
+            <MapContainer
+              className="map-container"
+              center={[48.8566, 2.3522]} // Default to Paris or a sensible default
+              zoom={12}
+            >
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              />
+              <Polyline
+                positions={plan.coords.map(([lon, lat]) => [lat, lon])}
+              />
+              <MapController
+                bounds={plan.coords.map(([lon, lat]) => [lat, lon])}
+              />
+            </MapContainer>
 
-          {/* Trip details */}
-          <div style={{ flex: 1 }}>
-            <h3>Distances (km/day)</h3>
-            <ul>
-              {plan.dayDistances.map((d, i) => (
-                <li key={i}>
-                  Day {i + 1}: {d.toFixed(1)}
-                </li>
-              ))}
-            </ul>
-            <h3>Weather</h3>
-            <ul>
-              {plan.weather.map((w, i) => (
-                <li key={i}>
-                  {w.date}: {w.temp_min}–{w.temp_max}
-                </li>
-              ))}
-            </ul>
-            <img
-              src={plan.imageUrl}
-              alt={location}
-              style={{ maxWidth: "100%", marginTop: "1rem" }}
-            />
-            <h3>Itinerary</h3>
-            <p>{plan.narrative}</p>
+            <div className="plan-details-card narrative-card">
+              <h3>Your AI-Generated Itinerary</h3>
+              {plan.imageUrl && (
+                <img
+                  src={plan.imageUrl}
+                  alt={`AI-generated image for ${location}`}
+                  className="plan-image"
+                />
+              )}
+              <p>{plan.narrative}</p>
+            </div>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import "./LoginRegister.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,39 +15,36 @@ export default function Login() {
       await login(email, password);
       navigate("/plan");
     } catch (err) {
-      alert("Login failed: " + err.response?.data?.message || err.message);
+      alert("Login failed: " + (err.response?.data?.message || err.message));
     }
   };
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <br />
+    <div className="auth-page-container">
+      <div className="auth-logo">TripPlanner</div>
+      <div className="auth-container card">
+        <h2>Log In</h2>
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
+            placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Password</label>
-          <br />
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <button type="submit">Log In</button>
-      </form>
-      <p>
-        Don’t have an account? <Link to="/register">Register</Link>
-      </p>
+          <button type="submit">Log In</button>
+        </form>
+        <p>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </div>
   );
 }

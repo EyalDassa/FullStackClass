@@ -12,40 +12,43 @@ function App() {
   const location = useLocation();
   // only show NavBar on paths other than /login and /register
   const hideNav = ["/login", "/register"].includes(location.pathname);
-  return (
-    <>
-      {!hideNav && <NavBar />}
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/plan"
-          element={
-            <PrivateRoute>
-              <PlanTrip />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/history"
-          element={
-            <PrivateRoute>
-              <History />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/history/:id"
-          element={
-            <PrivateRoute>
-              <TripDetail />
-            </PrivateRoute>
-          }
-        />
-        <Route path="*" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </>
+  return (
+    <div className="app-container">
+      {!hideNav && <NavBar />}
+      <main>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          <Route
+            path="/plan"
+            element={
+              <PrivateRoute>
+                <PlanTrip />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <PrivateRoute>
+                <History />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/history/:id"
+            element={
+              <PrivateRoute>
+                <TripDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/plan" replace />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 

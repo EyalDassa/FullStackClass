@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import "./LoginRegister.css";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -25,43 +26,37 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
-          <br />
+    <div className="auth-page-container">
+      <div className="auth-logo">TripPlanner</div>
+      <div className="auth-container card">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit}>
           <input
+            placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Email</label>
-          <br />
           <input
             type="email"
+            placeholder="Email Address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Password</label>
-          <br />
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <p>
-        Have an account? <Link to="/login">Log In</Link>
-      </p>
+          <button type="submit">Create Account</button>
+        </form>
+        <p>
+          Already have an account? <Link to="/login">Log In</Link>
+        </p>
+      </div>
     </div>
   );
 }

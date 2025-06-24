@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import api from "../api";
+import "./History.css";
 
 export default function History() {
   const [trips, setTrips] = useState([]);
@@ -13,20 +14,28 @@ export default function History() {
   }, []);
 
   return (
-    <div>
-      <h2>Your Saved Trips</h2>
+    <div className="container">
+      <h2 style={{ marginBottom: "2rem" }}>Your Saved Trips</h2>
       {trips.length === 0 ? (
-        <p>No trips saved yet.</p>
+        <p>
+          You haven't saved any trips yet. Go to the "Plan" page to create one!
+        </p>
       ) : (
-        <ul>
+        <div className="history-grid">
           {trips.map((trip) => (
-            <li key={trip._id}>
-              <Link to={`/history/${trip._id}`}>
-                {trip.name} — {new Date(trip.createdAt).toLocaleDateString()}
-              </Link>
-            </li>
+            <Link
+              to={`/history/${trip._id}`}
+              key={trip._id}
+              className="trip-card"
+            >
+              <h3>{trip.name}</h3>
+              <p>{trip.description || "No description"}</p>
+              <div className="trip-date">
+                Saved on {new Date(trip.createdAt).toLocaleDateString()}
+              </div>
+            </Link>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
