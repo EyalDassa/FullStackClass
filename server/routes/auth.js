@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
   res.json({ token });
 });
 
-// (Optional) POST /auth/logout — on client just drop the token
+// POST /auth/logout — on client just drop the token
 router.post("/logout", (_req, res) => {
   // With stateless JWT, you simply have the client delete its copy.
   res.json({ message: "Logged out" });

@@ -4,7 +4,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import "./NavBar.css";
 
 export default function NavBar() {
-  const { token, logout } = useContext(AuthContext);
+  const { token, user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,6 +21,7 @@ export default function NavBar() {
         <div className="navbar-links">
           <NavLink to="/plan">Plan</NavLink>
           <NavLink to="/history">History</NavLink>
+          {token && user && <span className="user-email">{user.email}</span>}
           {token && (
             <button onClick={handleLogout} className="logout-btn">
               Logout
