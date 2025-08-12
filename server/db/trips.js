@@ -12,6 +12,7 @@ async function saveTrip(route) {
     type: route.type,
     coords: route.coords,
     dayDistances: route.dayDistances,
+    narrative: route.narrative,
     createdAt: new Date(),
   });
   // result.ops is deprecated; use insertedId + findOne

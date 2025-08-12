@@ -8,7 +8,7 @@ const router = express.Router();
 ========================= */
 const ORS_BASE = "https://api.openrouteservice.org/v2";
 const NOMINATIM_BASE = "https://nominatim.openstreetmap.org";
-const OPEN_METEO_BASE = "https://api.open-meteo.com/v1/forecast";
+const OPEN_METEO_BASE = "https://api.open-meteo.com/v1/";
 const USER_AGENT = "TripPlannerApp/1.0";
 
 const MAX_KM_PER_DAY = { bike: 60, trek: 10 };

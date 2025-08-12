@@ -25,6 +25,44 @@
   margin-top: 0; /* Override default form button style */
 }
 
+.loading-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background-color: var(--content-background-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  margin: 2rem 0;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.loading-text {
+  color: var(--text-light-color);
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .plan-results {
   display: grid;
   grid-template-columns: 1fr 2fr;

@@ -12,6 +12,7 @@ export default function PlanTrip() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState("");
   const navigate = useNavigate();
 
   // 1) Generate the trip preview
@@ -22,6 +23,7 @@ export default function PlanTrip() {
 
     try {
       // Step 1: Get route, weather, etc.
+      setLoadingStep("Generating route and calculating distances...");
       const routeRes = await api.post("/trips/plan/route", { location, type });
       const routeData = routeRes.data;
 
@@ -30,6 +32,7 @@ export default function PlanTrip() {
       setPlan({ ...routeData, imageUrl: "", narrative: "Generating..." });
 
       // Step 2: Get AI content in parallel
+      setLoadingStep("Generating AI image and itinerary...");
       const imagePromise = api.post("/trips/plan/image", { location, type });
       const narrativePromise = api.post("/trips/plan/narrative", {
         location,
@@ -44,6 +47,7 @@ export default function PlanTrip() {
       ]);
 
       // Step 3: Update the plan with the AI content
+      setLoadingStep("Finalizing your trip plan...");
       setPlan((prevPlan) => ({
         ...prevPlan,
         imageUrl: imageRes.data.imageUrl,
@@ -56,6 +60,7 @@ export default function PlanTrip() {
       setPlan(null); // Clear plan on error
     } finally {
       setIsLoading(false);
+      setLoadingStep("");
     }
   };
 
@@ -71,6 +76,7 @@ export default function PlanTrip() {
         type,
         coords: plan.coords,
         dayDistances: plan.dayDistances,
+        narrative: plan.narrative,
       });
       navigate("/history");
     } catch (err) {
@@ -95,6 +101,13 @@ export default function PlanTrip() {
           {isLoading ? "Generating..." : "Generate Plan"}
         </button>
       </form>
+
+      {isLoading && (
+        <div className="loading-animation">
+          <div className="spinner"></div>
+          <p className="loading-text">{loadingStep}</p>
+        </div>
+      )}
 
       {plan && (
         <div className="plan-results">

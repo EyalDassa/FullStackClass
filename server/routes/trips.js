@@ -5,7 +5,14 @@ const router = express.Router();
 // POST /trips → create a new trip
 router.post("/", async (req, res) => {
   try {
-    const { name, description = "", type, coords, dayDistances } = req.body;
+    const {
+      name,
+      description = "",
+      type,
+      coords,
+      dayDistances,
+      narrative = "",
+    } = req.body;
     // Validate required fields
     if (
       !name ||
@@ -23,6 +30,7 @@ router.post("/", async (req, res) => {
       type,
       coords,
       dayDistances,
+      narrative,
     });
     res.status(201).json(trip);
   } catch (err) {
