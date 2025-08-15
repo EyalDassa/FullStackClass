@@ -121,8 +121,6 @@ cp .env.example .env
 
 ### 4. Start the Application
 
-#### Option A: Run Separately
-
 ```bash
 # Terminal 1 - Start backend
 cd server
@@ -131,12 +129,8 @@ npm start
 # Terminal 2 - Start frontend
 cd client
 npm start
-```
 
-#### Option B: Use Docker
-
-```bash
-# From project root
+# From project root - use Docker to run DB
 docker-compose up
 ```
 
